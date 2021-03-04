@@ -10,7 +10,9 @@ class App extends React.Component {
       isLoaded: false,
       products: [],
       credit: 0,
-      message: ''
+      message: '',
+      isAdmin: false
+
     }
 
     this.updateProducts = this.updateProducts.bind(this)
@@ -78,8 +80,13 @@ class App extends React.Component {
     this.setState({ products: products })
   }
 
+  switchAdmin () {
+    const { isAdmin } = this.state
+    this.setState({ isAdmin: !isAdmin })
+  }
+
   render () {
-    const { isLoaded, products, credit, message } = this.state
+    const { isLoaded, products, credit, message, isAdmin } = this.state
     return (
       <div className="App">
         <div className="background">
@@ -89,7 +96,7 @@ class App extends React.Component {
                   <div className="col">
                     <div className="row">
                       {products.map((product, index) => {
-                        return <ProductComponent key={index} updateProducts={this.updateProducts} id={product._id} name={product.name} description={product.description} price={product.price} quantity={product.quantity} lane={index + 1}/>
+                        return <ProductComponent key={index} isAdmin={isAdmin} updateProducts={this.updateProducts} id={product._id} name={product.name} description={product.description} price={product.price} quantity={product.quantity} lane={index + 1}/>
                       })}
                     </div>
                   </div>
@@ -113,6 +120,9 @@ class App extends React.Component {
                       })}
                     </div>
                     {message ? <div className="row mx-2 mt-3 box"><p className="text-center">{message}</p></div> : ''}
+                    <div className="row mx-2 mt-2">
+                      <button className="btn btn-danger" onClick={() => this.switchAdmin()}>{ isAdmin ? 'Currently: I am Admin' : 'Currently: I am not Admin' } </button>
+                    </div>
                   </div>
                 </div>
               : <div className="white-text">Loading</div>}

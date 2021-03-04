@@ -31,7 +31,7 @@ class ProductComponent extends React.Component {
         </div>
         <div className="row">
           <div className="col-6">Quantity:</div>
-          <div className="col-6">{this.props.quantity} <a onClick={() => this.refill()} href="#">+</a></div>
+          <div className="col-6">{this.props.quantity} {this.props.isAdmin ? <a onClick={() => this.refill()} href="#">+</a> : ''}</div>
         </div>
         <div className="row">
           <div className="col-6">Lane:</div>
@@ -57,6 +57,7 @@ ProductComponent.propTypes = {
   quantity: PropTypes.number.isRequired,
   price: PropTypes.number.isRequired,
   lane: PropTypes.number.isRequired,
-  updateProducts: PropTypes.func.isRequired
+  updateProducts: PropTypes.func.isRequired,
+  isAdmin: PropTypes.bool.isRequired
 }
 export default ProductComponent
