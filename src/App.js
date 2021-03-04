@@ -12,6 +12,8 @@ class App extends React.Component {
       credit: 0,
       message: ''
     }
+
+    this.updateProducts = this.updateProducts.bind(this)
   }
 
   componentDidMount () {
@@ -48,7 +50,16 @@ class App extends React.Component {
   }
 
   vendProduct (product, credit) {
-    // call api to vend the product
+    fetch(`http://localhost:3000/api/products/${product._id}/vend`, { method: 'post' })
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.updateProducts(result)
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
     const change = credit - (product.price * 100)
     this.showMessage(`Please take your product: ${product.name} and your change is $${change / 100}`)
     this.setState({ credit: 0 })
@@ -63,6 +74,10 @@ class App extends React.Component {
     this.setState({ credit: credit + amount })
   }
 
+  updateProducts (products) {
+    this.setState({ products: products })
+  }
+
   render () {
     const { isLoaded, products, credit, message } = this.state
     return (
@@ -74,7 +89,7 @@ class App extends React.Component {
                   <div className="col">
                     <div className="row">
                       {products.map((product, index) => {
-                        return <ProductComponent key={index} name={product.name} description={product.description} price={product.price} quantity={product.quantity} lane={index + 1}/>
+                        return <ProductComponent key={index} updateProducts={this.updateProducts} id={product._id} name={product.name} description={product.description} price={product.price} quantity={product.quantity} lane={index + 1}/>
                       })}
                     </div>
                   </div>
