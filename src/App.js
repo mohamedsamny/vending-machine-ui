@@ -9,7 +9,8 @@ class App extends React.Component {
     this.state = {
       isLoaded: false,
       products: [],
-      credit: 0
+      credit: 0,
+      message: ''
     }
   }
 
@@ -39,7 +40,7 @@ class App extends React.Component {
     }
 
     if (credit < priceInCents) {
-      this.showMessage('insufficient funds')
+      this.showMessage('Insufficient funds')
       return
     }
 
@@ -54,7 +55,7 @@ class App extends React.Component {
   }
 
   showMessage (message) {
-    console.log(message)
+    this.setState({ message: message })
   }
 
   addCredit (amount) {
@@ -63,44 +64,43 @@ class App extends React.Component {
   }
 
   render () {
-    const { isLoaded, products, credit } = this.state
+    const { isLoaded, products, credit, message } = this.state
     return (
       <div className="App">
         <div className="background">
           <div className="container">
             {isLoaded
               ? <div className="row">
-                <div className="col">
-                  <div className="row">
-                    {products.map((product, index) => {
-                      return <ProductComponent key={index} name={product.name} description={product.description} price={product.price} quantity={product.quantity} lane={index + 1}/>
-                    })}
-                  </div>
-                </div>
-
-                <div className="col">
-                  <div className="row mb-2 mt-2">
-                    <div className="btn-group" role="group" aria-label="Basic outlined example">
-                      <button type="button" className="btn btn-outline-primary" onClick={() => this.addCredit(100)}>$1.00</button>
-                      <button type="button" className="btn btn-outline-primary" onClick={() => this.addCredit(25)}>25¢</button>
-                      <button type="button" className="btn btn-outline-primary" onClick={() => this.addCredit(10)}>10¢</button>
-                      <button type="button" className="btn btn-outline-primary" onClick={() => this.addCredit(5)}>5¢</button>
-
+                  <div className="col">
+                    <div className="row">
+                      {products.map((product, index) => {
+                        return <ProductComponent key={index} name={product.name} description={product.description} price={product.price} quantity={product.quantity} lane={index + 1}/>
+                      })}
                     </div>
                   </div>
-                  <div className="row mb-2 mx-4">
-                    <input type="text" placeholder="display" value={credit / 100} readOnly={true}/>
-                  </div>
-                  <div className="row mx-2 mb-2">
-                    {products.map((product, index) => {
-                      return <button type="button" className="btn btn-outline-primary col-4" onClick={() => this.buyProduct(index)} key={index}>{index + 1}</button>
-                    })}
 
+                  <div className="col">
+                    <div className="row mb-2 mt-2">
+                      <div className="btn-group" role="group" aria-label="Basic outlined example">
+                        <button type="button" className="btn btn-outline-primary" onClick={() => this.addCredit(100)}>$1.00</button>
+                        <button type="button" className="btn btn-outline-primary" onClick={() => this.addCredit(25)}>25¢</button>
+                        <button type="button" className="btn btn-outline-primary" onClick={() => this.addCredit(10)}>10¢</button>
+                        <button type="button" className="btn btn-outline-primary" onClick={() => this.addCredit(5)}>5¢</button>
+
+                      </div>
+                    </div>
+                    <div className="row mb-2 mx-4">
+                      <input type="text" placeholder="display" value={credit / 100} readOnly={true}/>
+                    </div>
+                    <div className="row mx-2 mb-2">
+                      {products.map((product, index) => {
+                        return <button type="button" className="btn btn-outline-primary col-4" onClick={() => this.buyProduct(index)} key={index}>{index + 1}</button>
+                      })}
+                    </div>
+                    {message ? <div className="row mx-2 mt-3 box"><p className="text-center">{message}</p></div> : ''}
                   </div>
                 </div>
-              </div>
               : <div className="white-text">Loading</div>}
-
           </div>
         </div>
       </div>
