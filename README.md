@@ -2,6 +2,9 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## App Demo
+![DEMO](https://i.gyazo.com/65a95501ead13e7999ff9df92257de22.gif)
+
 ## Prerequisites
 To run this project the following components needs to be installed before following the setup instructions:
 1. [Nodejs](https://nodejs.dev/)
