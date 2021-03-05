@@ -96,7 +96,7 @@ class App extends React.Component {
                   <div className="col">
                     <div className="row">
                       {products.map((product, index) => {
-                        return <ProductComponent key={index} isAdmin={isAdmin} updateProducts={this.updateProducts} id={product._id} name={product.name} description={product.description} price={product.price} quantity={product.quantity} lane={index + 1}/>
+                        return <ProductComponent key={index} isAdmin={isAdmin} updateProducts={this.updateProducts} id={product._id} name={product.name} maxQuantity={product.max_quantity} description={product.description} price={product.price} quantity={product.quantity} lane={index + 1}/>
                       })}
                     </div>
                   </div>
