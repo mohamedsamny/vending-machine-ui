@@ -1,6 +1,7 @@
 import './index.css'
 import React from 'react'
 import PropTypes from 'prop-types'
+import config from '../../config'
 
 class ProductComponent extends React.Component {
   constructor (props) {
@@ -10,7 +11,7 @@ class ProductComponent extends React.Component {
   }
 
   refill () {
-    fetch(`http://localhost:3000/api/products/${this.props.id}/refill`, { method: 'post' })
+    fetch(`${config.API_URI}/api/products/${this.props.id}/refill`, { method: 'post' })
       .then(res => res.json())
       .then(
         (result) => {

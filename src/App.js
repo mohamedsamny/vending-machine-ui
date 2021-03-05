@@ -2,6 +2,7 @@ import './App.css'
 
 import React from 'react'
 import ProductComponent from './components/product'
+import config from './config'
 
 class App extends React.Component {
   constructor (props) {
@@ -19,7 +20,7 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    fetch('http://localhost:3000/api/products')
+    fetch(`${config.API_URI}/api/products`)
       .then(res => res.json())
       .then(
         (result) => {
